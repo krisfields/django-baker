@@ -1,0 +1,12 @@
+*.pyc
+django_baker.egg-info
+dist
+bread
+extra_goodies
+pages
+project
+users
+fabfile.py
+__init__.py
+requirements.txt
+manage.py

@@ -1,0 +1,39 @@
+from django import forms
+from .models import {{ model_names|join:", " }}
+
+{% for model_name, model_fields in model_names.iteritems %}
+class {{ model_name }}Form(forms.ModelForm):
+
+    class Meta:
+        model = {{ model_name }}
+        fields = {{ model_fields|safe }}
+        exclude = []
+        widgets = None
+        localized_fields = None
+        labels = {}
+        help_texts = {}
+        error_messages = {}
+
+    def __init__(self, *args, **kwargs):
+        return super({{ model_name }}Form, self).__init__(*args, **kwargs)
+
+    def is_valid(self):
+        return super({{ model_name }}Form, self).is_valid()
+
+    def full_clean(self):
+        return super({{ model_name }}Form, self).full_clean()
+{% for field in model_fields %}
+    def clean_{{ field }}(self):
+        {{ field }} = self.cleaned_data.get("{{ field }}", None)
+        return {{ field }}
+{% endfor %}
+    def clean(self):
+        return super({{ model_name }}Form, self).clean()
+
+    def validate_unique(self):
+        return super({{ model_name }}Form, self).validate_unique()
+
+    def save(self, commit=True):
+        return super({{ model_name }}Form, self).save(commit)
+{% if not forloop.last %}
+{% endif %}{% endfor %}

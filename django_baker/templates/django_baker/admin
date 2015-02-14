@@ -1,0 +1,22 @@
+from django.contrib import admin
+from .models import {{ model_names|join:", " }}
+from django_baker.admin import ExtendedModelAdminMixin
+
+{% for model_name in model_names %}
+class {{ model_name }}Admin(ExtendedModelAdminMixin, admin.ModelAdmin):
+    extra_list_display = []
+    extra_list_filter = []
+    extra_search_fields = []
+    list_editable = []
+    raw_id_fields = []
+    inlines = []
+    filter_vertical = []
+    filter_horizontal = []
+    radio_fields = {}
+    prepopulated_fields = {}
+    formfield_overrides = {}
+    readonly_fields = []
+
+{% endfor %}
+{% for model_name in model_names %}admin.site.register({{ model_name }}, {{ model_name }}Admin)
+{% endfor %}

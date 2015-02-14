@@ -1,0 +1,17 @@
+{% templatetag openblock %} extends "{{ app_label }}/{{ model_name_slug }}_base.html" {% templatetag closeblock %}
+
+{% verbatim %}{% block title %}{% endverbatim %}
+    Delete {% templatetag openvariable %} {{ model_name_slug }} {% templatetag closevariable %}
+{% verbatim %}{% endblock %}{% endverbatim %}
+
+{% verbatim %}{% block content %}{% endverbatim %}
+<h1>Delete {% templatetag openvariable %} {{ model_name_slug }} {% templatetag closevariable %}</h1>
+
+<form action="" method="post">{% verbatim %}{% csrf_token %}{% endverbatim %}
+    <p>Are you sure you want to delete {% templatetag openvariable %} {{ model_name_slug }} {% templatetag closevariable %}?</p>
+    <input type="submit" value="Confirm" />
+</form>
+
+<a href={% templatetag openblock %} url "{{ model_name_slug }}_detail" {{ model_name_slug }}.{{ lookup_field }} {% templatetag closeblock %}>Cancel</a>
+
+{% verbatim %}{% endblock %}{% endverbatim %}

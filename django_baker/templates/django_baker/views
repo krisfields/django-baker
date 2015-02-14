@@ -1,0 +1,266 @@
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+from ..models import {{ model_name }}
+from ..forms import {{ model_name }}Form
+from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
+from django.http import Http404
+
+
+class {{ model_name }}ListView(ListView):
+    model = {{ model_name }}
+    template_name = "{{ app_label }}/{{ model_name_slug }}_list.html"
+    paginate_by = 20
+    context_object_name = "{{ model_name_slug }}_list"
+    allow_empty = True
+    page_kwarg = 'page'
+    paginate_orphans = 0
+
+    def __init__(self, **kwargs):
+        return super({{ model_name }}ListView, self).__init__(**kwargs)
+
+    def dispatch(self, *args, **kwargs):
+        return super({{ model_name }}ListView, self).dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return super({{ model_name }}ListView, self).get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return super({{ model_name }}ListView, self).get_queryset()
+
+    def get_allow_empty(self):
+        return super({{ model_name }}ListView, self).get_allow_empty()
+
+    def get_context_data(self, *args, **kwargs):
+        ret = super({{ model_name }}ListView, self).get_context_data(*args, **kwargs)
+        return ret
+
+    def get_paginate_by(self, queryset):
+        return super({{ model_name }}ListView, self).get_paginate_by(queryset)
+
+    def get_context_object_name(self, object_list):
+        return super({{ model_name }}ListView, self).get_context_object_name(object_list)
+
+    def paginate_queryset(self, queryset, page_size):
+        return super({{ model_name }}ListView, self).paginate_queryset(queryset, page_size)
+
+    def get_paginator(self, queryset, per_page, orphans=0, allow_empty_first_page=True):
+        return super({{ model_name }}ListView, self).get_paginator(queryset, per_page, orphans=0, allow_empty_first_page=True)
+
+    def render_to_response(self, context, **response_kwargs):
+        return super({{ model_name }}ListView, self).render_to_response(context, **response_kwargs)
+
+    def get_template_names(self):
+        return super({{ model_name }}ListView, self).get_template_names()
+
+
+class {{ model_name }}DetailView(DetailView):
+    model = {{ model_name }}
+    template_name = "{{ app_label }}/{{ model_name_slug }}_detail.html"
+    context_object_name = "{{ model_name_slug }}"
+    slug_field = '{{ slug_field_name }}'
+    slug_url_kwarg = '{{ slug_field_name }}'
+    pk_url_kwarg = 'pk'
+
+    def __init__(self, **kwargs):
+        return super({{ model_name }}DetailView, self).__init__(**kwargs)
+
+    def dispatch(self, *args, **kwargs):
+        return super({{ model_name }}DetailView, self).dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return super({{ model_name }}DetailView, self).get(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        return super({{ model_name }}DetailView, self).get_object(queryset)
+
+    def get_queryset(self):
+        return super({{ model_name }}DetailView, self).get_queryset()
+
+    def get_slug_field(self):
+        return super({{ model_name }}DetailView, self).get_slug_field()
+
+    def get_context_data(self, **kwargs):
+        ret = super({{ model_name }}DetailView, self).get_context_data(**kwargs)
+        return ret
+
+    def get_context_object_name(self, obj):
+        return super({{ model_name }}DetailView, self).get_context_object_name(obj)
+
+    def render_to_response(self, context, **response_kwargs):
+        return super({{ model_name }}DetailView, self).render_to_response(context, **response_kwargs)
+
+    def get_template_names(self):
+        return super({{ model_name }}DetailView, self).get_template_names()
+
+
+class {{ model_name }}CreateView(CreateView):
+    model = {{ model_name }}
+    form_class = {{ model_name }}Form
+    fields = {{ model_fields|safe }}
+    template_name = "{{ app_label }}/{{ model_name_slug }}_create.html"
+    success_url = reverse_lazy("{{ model_name_slug }}_list")
+
+    def __init__(self, **kwargs):
+        return super({{ model_name }}CreateView, self).__init__(**kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        return super({{ model_name }}CreateView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return super({{ model_name }}CreateView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return super({{ model_name }}CreateView, self).post(request, *args, **kwargs)
+
+    def get_form_class(self):
+        return super({{ model_name }}CreateView, self).get_form_class()
+
+    def get_form(self, form_class):
+        return super({{ model_name }}CreateView, self).get_form(form_class)
+
+    def get_form_kwargs(self, **kwargs):
+        return super({{ model_name }}CreateView, self).get_form_kwargs(**kwargs)
+
+    def get_initial(self):
+        return super({{ model_name }}CreateView, self).get_initial()
+
+    def form_invalid(self, form):
+        return super({{ model_name }}CreateView, self).form_invalid(form)
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.save()
+        return super({{ model_name }}CreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super({{ model_name }}CreateView, self).get_context_data(**kwargs)
+        return ret
+
+    def render_to_response(self, context, **response_kwargs):
+        return super({{ model_name }}CreateView, self).render_to_response(context, **response_kwargs)
+
+    def get_template_names(self):
+        return super({{ model_name }}CreateView, self).get_template_names()
+
+    def get_success_url(self):
+        return reverse("{{ model_name_slug }}_detail", args=(self.object.{% if slug_field %}{{ slug_field_name }}{% else %}pk{% endif %},))
+
+
+class {{ model_name }}UpdateView(UpdateView):
+    model = {{ model_name }}
+    form_class = {{ model_name }}Form
+    fields = {{ model_fields|safe }}
+    template_name = "{{ app_label }}/{{ model_name_slug }}_update.html"
+    initial = {}
+    slug_field = '{{ slug_field_name }}'
+    slug_url_kwarg = '{{ slug_field_name }}'
+    pk_url_kwarg = 'pk'
+    context_object_name = "{{ model_name_slug }}"
+
+    def __init__(self, **kwargs):
+        return super({{ model_name }}UpdateView, self).__init__(**kwargs)
+
+    def dispatch(self, *args, **kwargs):
+        return super({{ model_name }}UpdateView, self).dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return super({{ model_name }}UpdateView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return super({{ model_name }}UpdateView, self).post(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        return super({{ model_name }}UpdateView, self).get_object(queryset)
+
+    def get_queryset(self):
+        return super({{ model_name }}UpdateView, self).get_queryset()
+
+    def get_slug_field(self):
+        return super({{ model_name }}UpdateView, self).get_slug_field()
+
+    def get_form_class(self):
+        return super({{ model_name }}UpdateView, self).get_form_class()
+
+    def get_form(self, form_class):
+        return super({{ model_name }}UpdateView, self).get_form(form_class)
+
+    def get_form_kwargs(self, **kwargs):
+        return super({{ model_name }}UpdateView, self).get_form_kwargs(**kwargs)
+
+    def get_initial(self):
+        return super({{ model_name }}UpdateView, self).get_initial()
+
+    def form_invalid(self, form):
+        return super({{ model_name }}UpdateView, self).form_invalid(form)
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.save()
+        return super({{ model_name }}UpdateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super({{ model_name }}UpdateView, self).get_context_data(**kwargs)
+        return ret
+
+    def get_context_object_name(self, obj):
+        return super({{ model_name }}UpdateView, self).get_context_object_name(obj)
+
+    def render_to_response(self, context, **response_kwargs):
+        return super({{ model_name }}UpdateView, self).render_to_response(context, **response_kwargs)
+
+    def get_template_names(self):
+        return super({{ model_name }}UpdateView, self).get_template_names()
+
+    def get_success_url(self):
+        return reverse("{{ model_name_slug }}_detail", args=(self.object.{% if slug_field %}{{ slug_field_name }}{% else %}pk{% endif %},))
+
+
+class {{ model_name }}DeleteView(DeleteView):
+    model = {{ model_name }}
+    template_name = "{{ app_label }}/{{ model_name_slug }}_delete.html"
+    slug_field = '{{ slug_field_name }}'
+    slug_url_kwarg = '{{ slug_field_name }}'
+    pk_url_kwarg = 'pk'
+    context_object_name = "{{ model_name_slug }}"
+
+    def __init__(self, **kwargs):
+        return super({{ model_name }}DeleteView, self).__init__(**kwargs)
+
+    def dispatch(self, *args, **kwargs):
+        return super({{ model_name }}DeleteView, self).dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        raise Http404
+
+    def post(self, request, *args, **kwargs):
+        return super({{ model_name }}DeleteView, self).post(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return super({{ model_name }}DeleteView, self).delete(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        return super({{ model_name }}DeleteView, self).get_object(queryset)
+
+    def get_queryset(self):
+        return super({{ model_name }}DeleteView, self).get_queryset()
+
+    def get_slug_field(self):
+        return super({{ model_name }}DeleteView, self).get_slug_field()
+
+    def get_context_data(self, **kwargs):
+        ret = super({{ model_name }}DeleteView, self).get_context_data(**kwargs)
+        return ret
+
+    def get_context_object_name(self, obj):
+        return super({{ model_name }}DeleteView, self).get_context_object_name(obj)
+
+    def render_to_response(self, context, **response_kwargs):
+        return super({{ model_name }}DeleteView, self).render_to_response(context, **response_kwargs)
+
+    def get_template_names(self):
+        return super({{ model_name }}DeleteView, self).get_template_names()
+
+    def get_success_url(self):
+        return reverse("{{ model_name_slug }}_list")

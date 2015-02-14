@@ -1,0 +1,3 @@
+
+{% for model_name_slug in model_name_slugs %}from {{ model_name_slug }} import *  # NOQA
+{% endfor %}

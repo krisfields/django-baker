@@ -40,7 +40,7 @@ Finally you simply need to add one or more urlpattern to your project's URLconf.
 
 .. code-block:: python
 
-    (r'^pastries/', include('pastries.urls')),
+    (r'^pastries/', include('pastries.urls.pastry_urls')),
 
 will result in the following url schema:
 

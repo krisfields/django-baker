@@ -107,6 +107,8 @@ A new urls directory is created, with each model getting it's own file (ie. tart
 
 For DetailView, UpdateView, and DeleteView, if a model has exactly one unique slug field, that slug field will be used in the url.  Otherwise pk will be used.
 
+For CreateView, UpdateView, and DeleteView, the login_required decorator has been added as the vast majority of the time these actions tend to require the user to be logged in.  In the future, I intend to make this optional.
+
 Admin
 =====
 

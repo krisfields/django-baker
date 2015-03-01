@@ -4,7 +4,7 @@ from django.db.models.fields import SlugField
 import re
 from django.template.loader import get_template
 from django.template import Context
-
+from django.utils.six import iteritems
 
 class Baker(object):
     """
@@ -16,7 +16,7 @@ class Baker(object):
         """
             Iterates a dictionary of apps and models and creates all the necessary files to get up and running quickly.
         """
-        for app_label, models in apps_and_models.iteritems():
+        for app_label, models in iteritems(apps_and_models):
             model_names = {model.__name__: self.get_field_names_for_model(model) for model in models}
             self.create_directories(app_label)
             self.create_init_files(app_label, model_names.keys(), models)

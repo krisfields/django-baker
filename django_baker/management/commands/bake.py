@@ -1,3 +1,4 @@
+from __future__ import print_function
 from django.core.management.base import BaseCommand, CommandError
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import get_app, get_models
@@ -51,7 +52,7 @@ class Command(BaseCommand):
         """
         if model_names:
             try:
-                print app_label, model_names
+                print(app_label, model_names)
                 return [get_model(app_label, model_name) for model_name in model_names]
             except:
                 raise CommandError("One or more of the models you entered for %s are incorrect." % app_label)

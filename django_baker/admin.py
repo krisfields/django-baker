@@ -43,6 +43,8 @@ def is_urlfield(field, model=None):
             return False
     try:
         return field.default_validators[0].regex == URLValidator.regex
+    except AttributeError:
+        return False
     except IndexError:
         return False
 

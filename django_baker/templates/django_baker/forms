@@ -1,7 +1,7 @@
 from django import forms
 from .models import {{ model_names|join:", " }}
 
-{% for model_name, model_fields in model_names.iteritems %}
+{% for model_name, model_fields in model_names.items %}
 class {{ model_name }}Form(forms.ModelForm):
 
     class Meta:

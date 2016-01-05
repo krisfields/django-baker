@@ -38,7 +38,7 @@ def is_urlfield(field, model=None):
     """
     if model:
         try:
-            field = model._meta.get_field_by_name(field)[0]
+            field = model._meta.get_field(field)
         except FieldDoesNotExist:
             return False
     try:
@@ -54,7 +54,7 @@ def is_foreignkey(field_name, model):
         Given a field_name and model, checks if field is ForeignKey or OneToOneField or not.
     """
     try:
-        field = model._meta.get_field_by_name(field_name)[0]
+        field = model._meta.get_field(field_name)
         if field.get_internal_type() in ["ForeignKey", "OneToOneField"]:
             return True
         return False

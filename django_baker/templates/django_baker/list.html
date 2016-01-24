@@ -6,7 +6,7 @@
 
 {% verbatim %}{% block content %}{% endverbatim %}
     <h1>{{ model_name_plural }}</h1>
-    <h2><a href={% templatetag openblock %} url "{{ model_name_slug }}_create" {% templatetag closeblock %}>Create new {{ model_name }}</h2>
+    <h2><a href={% templatetag openblock %} url "{{ model_name_slug }}_create" {% templatetag closeblock %}>Create new {{ model_name }}</a></h2>
     <ul>
     {% templatetag openblock %} for {{ model_name_slug }} in {{ model_name_slug }}_list {% templatetag closeblock %}
         <li><a href={% templatetag openblock %} url "{{ model_name_slug }}_detail" {{ model_name_slug }}.{{ lookup_field }} {% templatetag closeblock %}>{% templatetag openvariable %} {{ model_name_slug }} {% templatetag closevariable %}</a> | <a href={% templatetag openblock %} url "{{ model_name_slug }}_update" {{ model_name_slug }}.{{ lookup_field }} {% templatetag closeblock %}>Update</a> | <form style="display:inline;" action={% templatetag openblock %} url "{{ model_name_slug }}_delete" {{ model_name_slug }}.{{ lookup_field }} {% templatetag closeblock %} method="post" onsubmit="return confirm('Are you sure you want to delete {% templatetag openvariable %} {{ model_name_slug }} {% templatetag closevariable %}?')">{% verbatim %}{% csrf_token %}{% endverbatim %}

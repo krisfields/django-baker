@@ -114,7 +114,7 @@ Admin
 
 This is where I really had some fun.  For each model, a ModelAdmin is created that makes use of a model admin mixin that I wrote.  The goal of ExtendedModelAdminMixin is to make setting up a fully functional admin for each model (with intelligently chosen list_display, list_filter, and search_fields) a one liner.
 
-The actual contents of the admin.py files generated are fairly small, since most of the magic is happening in the ExtendedModelAdminMixin.  Many of the attributes that you can set are listed so that you may easily alter them as needed.  I didn't include any of the methods you can override as there are too many and it would get way too cluttered.  There are a lot of useful ones though, which you can view here: https://docs.djangoproject.com/en/1.7/ref/contrib/admin/#modeladmin-methods
+The actual contents of the admin.py files generated are fairly small, since most of the magic is happening in the ExtendedModelAdminMixin.  Many of the attributes that you can set are listed so that you may easily alter them as needed.  I didn't include any of the methods you can override as there are too many and it would get way too cluttered.  There are a lot of useful ones though, which you can view here: https://docs.djangoproject.com/en/1.10/ref/contrib/admin/#modeladmin-methods
 
 ExtendedModelAdminMixin sets defaults for the following:
 

@@ -1,5 +1,7 @@
 from django.core.validators import URLValidator
 from django.db.models.fields import FieldDoesNotExist
+from django.utils.encoding import smart_text
+
 from functools import partial
 
 
@@ -38,11 +40,13 @@ def is_urlfield(field, model=None):
     """
     if model:
         try:
-            field = model._meta.get_field_by_name(field)[0]
+            field = model._meta.get_field(field)
         except FieldDoesNotExist:
             return False
     try:
         return field.default_validators[0].regex == URLValidator.regex
+    except AttributeError:
+        return False
     except IndexError:
         return False
 
@@ -52,7 +56,7 @@ def is_foreignkey(field_name, model):
         Given a field_name and model, checks if field is ForeignKey or OneToOneField or not.
     """
     try:
-        field = model._meta.get_field_by_name(field_name)[0]
+        field = model._meta.get_field(field_name)
         if field.get_internal_type() in ["ForeignKey", "OneToOneField"]:
             return True
         return False
@@ -92,7 +96,7 @@ class ExtendedModelAdminMixin(object):
             if not target:
                 return "None"
             return u'<a href="../../%s/%s/%d">%s</a>' % (
-                target._meta.app_label, target._meta.model_name, target.id, unicode(target))
+                target._meta.app_label, target._meta.model_name, target.id, smart_text(target))
 
         if name[:9] == 'url_link_':
             method = partial(url_link, field=name[9:])

@@ -98,7 +98,7 @@ class {{ model_name }}DetailView(DetailView):
 class {{ model_name }}CreateView(CreateView):
     model = {{ model_name }}
     form_class = {{ model_name }}Form
-    fields = {{ model_fields|safe }}
+    # fields = {{ model_fields|safe }}
     template_name = "{{ app_label }}/{{ model_name_slug }}_create.html"
     success_url = reverse_lazy("{{ model_name_slug }}_list")
 
@@ -117,7 +117,7 @@ class {{ model_name }}CreateView(CreateView):
     def get_form_class(self):
         return super({{ model_name }}CreateView, self).get_form_class()
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=None):
         return super({{ model_name }}CreateView, self).get_form(form_class)
 
     def get_form_kwargs(self, **kwargs):
@@ -151,7 +151,7 @@ class {{ model_name }}CreateView(CreateView):
 class {{ model_name }}UpdateView(UpdateView):
     model = {{ model_name }}
     form_class = {{ model_name }}Form
-    fields = {{ model_fields|safe }}
+    # fields = {{ model_fields|safe }}
     template_name = "{{ app_label }}/{{ model_name_slug }}_update.html"
     initial = {}
     slug_field = '{{ slug_field_name }}'
@@ -183,7 +183,7 @@ class {{ model_name }}UpdateView(UpdateView):
     def get_form_class(self):
         return super({{ model_name }}UpdateView, self).get_form_class()
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=None):
         return super({{ model_name }}UpdateView, self).get_form(form_class)
 
     def get_form_kwargs(self, **kwargs):

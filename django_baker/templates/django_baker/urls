@@ -1,11 +1,10 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from ..views import ({{ model_name }}ListView, {{ model_name }}CreateView, {{ model_name }}DetailView,
                      {{ model_name }}UpdateView, {{ model_name }}DeleteView)
 from django.contrib.auth.decorators import login_required
 
 {% if slug_field %}
-urlpatterns = patterns('',
-
+urlpatterns = [
     url(r'^create/$',  # NOQA
         login_required({{ model_name }}CreateView.as_view()),
         name="{{ model_name_slug }}_create"),
@@ -25,10 +24,9 @@ urlpatterns = patterns('',
     url(r'^$',
         {{ model_name }}ListView.as_view(),
         name="{{ model_name_slug }}_list"),
-)
+]
 {% else %}
-urlpatterns = patterns('',
-
+urlpatterns = [
     url(r'^create/$',  # NOQA
         login_required({{ model_name }}CreateView.as_view()),
         name="{{ model_name_slug }}_create"),
@@ -48,5 +46,5 @@ urlpatterns = patterns('',
     url(r'^$',
         {{ model_name }}ListView.as_view(),
         name="{{ model_name_slug }}_list"),
-)
+]
 {% endif %}

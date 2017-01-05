@@ -41,9 +41,9 @@ class Baker(object):
         """
         return [field.name for field in model._meta.get_fields() if field.name != "id" and not
                 (field.get_internal_type() == "DateTimeField" and
-                 (field.auto_now is True or field.auto_now_add is True)) and 
-                field.concrete and ( not field.is_relation or field.one_to_one or 
-                    (field.many_to_one and field.related_model))]
+                 (field.auto_now is True or field.auto_now_add is True)) and
+                field.concrete and (not field.is_relation or field.one_to_one or
+                                    (field.many_to_one and field.related_model))]
 
     def create_directories(self, app):
         """
@@ -65,7 +65,7 @@ class Baker(object):
         for folder_name in ["views", "urls"]:
             file_path = "%s/%s/__init__.py" % (app.path, folder_name)
             template_path = "django_baker/__init__%s" % folder_name
-            self.create_file_from_template(file_path, template_path, {"app": app.label,
+            self.create_file_from_template(file_path, template_path, {"app_label": app.label,
                                                                       "model_name_slugs": model_name_slugs,
                                                                       "model_names_dict": model_names_dict
                                                                       })

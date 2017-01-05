@@ -13,18 +13,22 @@ class Command(BaseCommand):
             "app.  Optionally can restrict which apps are generated on a per app basis.\n\nexample: python manage.py "
             "bake bread:Sesame,Pumpkernickel donut:Glazed,Chocolate")
 
+    def add_arguments(self, parser):
+        # Positional arguments
+        parser.add_argument('apps_and_models', nargs='+')
+
     def handle(self, *args, **options):
-        ingredients = self.parse_bake_options(*args)
+        ingredients = self.parse_bake_options(options["apps_and_models"])
         baker = Baker()
         baker.bake(ingredients)
 
-    def parse_bake_options(self, *args):
+    def parse_bake_options(self, apps_and_models):
         """
             Parses command line options to determine what apps and models for those apps we should bake.
         """
         apps_and_models_to_bake = {}
-        for arg in args:
-            app_and_model_names = arg.split(':')
+        for app_and_model in apps_and_models:
+            app_and_model_names = app_and_model.split(':')
             app_label = app_and_model_names[0]
             if len(app_and_model_names) == 2:
                 selected_model_names = app_and_model_names[1].split(",")

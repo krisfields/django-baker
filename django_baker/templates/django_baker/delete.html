@@ -12,6 +12,6 @@
     <input type="submit" value="Confirm" />
 </form>
 
-<a href={% templatetag openblock %} url "{{ model_name_slug }}_detail" {{ model_name_slug }}.{{ lookup_field }} {% templatetag closeblock %}>Cancel</a>
+<a href={% templatetag openblock %} url "{{ app_label }}:{{ model_name_slug }}_detail" {{ model_name_slug }}.{{ lookup_field }} {% templatetag closeblock %}>Cancel</a>
 
 {% verbatim %}{% endblock %}{% endverbatim %}

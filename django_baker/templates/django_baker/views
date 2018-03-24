@@ -3,8 +3,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from ..models import {{ model_name }}
 from ..forms import {{ model_name }}Form
-from django.core.urlresolvers import reverse_lazy
-from django.core.urlresolvers import reverse
+from django.urls import reverse_lazy
+from django.urls import reverse
 from django.http import Http404
 
 
@@ -145,7 +145,7 @@ class {{ model_name }}CreateView(CreateView):
         return super({{ model_name }}CreateView, self).get_template_names()
 
     def get_success_url(self):
-        return reverse("{{ model_name_slug }}_detail", args=(self.object.{% if slug_field %}{{ slug_field_name }}{% else %}pk{% endif %},))
+        return reverse("{{ app_label }}:{{ model_name_slug }}_detail", args=(self.object.{% if slug_field %}{{ slug_field_name }}{% else %}pk{% endif %},))
 
 
 class {{ model_name }}UpdateView(UpdateView):
@@ -214,7 +214,7 @@ class {{ model_name }}UpdateView(UpdateView):
         return super({{ model_name }}UpdateView, self).get_template_names()
 
     def get_success_url(self):
-        return reverse("{{ model_name_slug }}_detail", args=(self.object.{% if slug_field %}{{ slug_field_name }}{% else %}pk{% endif %},))
+        return reverse("{{ app_label }}:{{ model_name_slug }}_detail", args=(self.object.{% if slug_field %}{{ slug_field_name }}{% else %}pk{% endif %},))
 
 
 class {{ model_name }}DeleteView(DeleteView):
@@ -263,4 +263,4 @@ class {{ model_name }}DeleteView(DeleteView):
         return super({{ model_name }}DeleteView, self).get_template_names()
 
     def get_success_url(self):
-        return reverse("{{ model_name_slug }}_list")
+        return reverse("{{ app_label }}:{{ model_name_slug }}_list")

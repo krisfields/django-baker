@@ -9,5 +9,6 @@ project
 users
 fabfile.py
 __init__.py
+first_requirements.txt
 requirements.txt
 manage.py

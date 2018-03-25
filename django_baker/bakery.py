@@ -117,7 +117,7 @@ class Baker(object):
             return
         with open(file_path, 'w') as new_file:
 
-            new_file.write(get_template(template_path).render(Context(context_variables)))
+            new_file.write(get_template(template_path).render(context_variables))
             print("\033[92m" + "successfully baked " + file_path + "\033[0m")
 
     def remove_empty_startapp_files(self, app):

@@ -15,7 +15,7 @@ setup(
     license='BSD License',
     description='Management command that generates views, forms, urls, admin, and templates for models',
     long_description=README,
-    url='https://github.com/krisfields/django-baker',
+    url='https://github.com/alkelaun/django-baker',
     author='Kris Fields',
     author_email='avalaunchit@gmail.com',
     classifiers=[

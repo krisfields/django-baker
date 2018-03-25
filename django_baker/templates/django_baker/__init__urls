@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 
-app_name={{ app_label }}
+app_name="{{ app_label }}"
 
 urlpatterns = [
 {% for model_name_slug, plural_model_name_slug in model_names_dict.items %}

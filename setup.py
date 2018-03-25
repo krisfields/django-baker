@@ -16,8 +16,8 @@ setup(
     description='Management command that generates views, forms, urls, admin, and templates for models',
     long_description=README,
     url='https://github.com/alkelaun/django-baker',
-    author='Kris Fields',
-    author_email='avalaunchit@gmail.com',
+    author='John',
+    author_email='blank@email.com',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',

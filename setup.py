@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-baker',
-    version='0.25',
+    version='0.26',
     packages=['django_baker'],
     include_package_data=True,
     license='BSD License',

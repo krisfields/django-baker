@@ -145,7 +145,7 @@ class {{ model_name }}CreateView(CreateView):
         return super({{ model_name }}CreateView, self).get_template_names()
 
     def get_success_url(self):
-        return reverse("{{ model_name_slug }}_detail", args=(self.object.{% if slug_field %}{{ slug_field_name }}{% else %}pk{% endif %},))
+        return reverse("{{ app_label }}:{{ model_name_slug }}_detail", args=(self.object.{% if slug_field %}{{ slug_field_name }}{% else %}pk{% endif %},))
 
 
 class {{ model_name }}UpdateView(UpdateView):
@@ -263,4 +263,4 @@ class {{ model_name }}DeleteView(DeleteView):
         return super({{ model_name }}DeleteView, self).get_template_names()
 
     def get_success_url(self):
-        return reverse("{{ model_name_slug }}_list")
+        return reverse("{{ app_label }}:{{ model_name_slug }}_list")

@@ -134,7 +134,7 @@ You can override this by setting the *list_display* attribute or you may extend 
 
 In addition, each URLField, ForeignKey, and OneToOneField will display as a link.  URLFields will link to their respective urls, while ForeignKey and OneToOneFields will link to their respective object's admin change pages.
 
-You can ovverride this functionality by setting **link_url_fields** and/or **link_foreign_key_fields** to False.
+You can override this functionality by setting **link_url_fields** and/or **link_foreign_key_fields** to False.
 
 list_filter
 -----------

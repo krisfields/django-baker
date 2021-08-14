@@ -7,7 +7,7 @@ import itertools
 from django.db.models.fields import SlugField
 from django.template.loader import get_template
 from django.template import Context
-from django.utils.six import iteritems
+from six import iteritems
 
 
 class Baker(object):

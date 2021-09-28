@@ -128,7 +128,7 @@ class Baker(object):
         for file_name in ["views", "admin", "tests"]:
             file_path = "%s/%s.py" % (app.path, file_name)
             if os.path.exists(file_path):
-                num_lines = sum(1 for line in open(file_path))
+                num_lines = sum(1 for _ in open(file_path))
                 if num_lines <= 4:
                     os.remove(file_path)
 

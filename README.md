@@ -14,10 +14,10 @@ You can override any of the template files that are used in the 'baking' process
 Installing
 **********
 
-.. code-block:: python
+```bash
 
     pip install django-baker
-
+```
 Add 'django_baker' to INSTALLED_APPS
 
 *****
@@ -26,43 +26,42 @@ Usage
 
 Let's assume your project is called TastyTreats, and has two apps, one called bread and another called pastries.
 
-.. code-block:: python
+```bash
 
     python manage.py bake bread pastries
-
+```
 This will generate files for all of the models in both of the apps.  You can override this by passing in models for each app.  Let's assume your pastries app has the following models: Tart, Strudel, and Danish but you only want to bake tarts and danishes.
 
-.. code-block:: python
-
+```bash
     python manage.py bake bread pastries:Tart,Danish
-
+```
 Finally you simply need to add one or more urlpattern to your project's URLconf.
 
-.. code-block:: python
-
+```bash
     (r'^pastries/', include('pastries.urls')),
+```
 
 will result in the following url schema:
 
-.. code-block:: html
-
+```
     www.tastytreats.com/pastries/tarts
     www.tastytreats.com/pastries/danishes
+```
 
 alternatively you can create multiple urlpatterns to create shorter urls.
 
-.. code-block:: python
+```python
 
     (r'^tarts/', include('pastries.urls.tart_urls')),
     (r'^danishes/', include('pastries.urls.danish_urls')),
-
+```
+    
 will result in the following url schema:
 
-.. code-block:: html
-
+```
     www.tastytreats.com/tarts
     www.tastytreats.com/danishes
-
+```
 
 Views
 =====
@@ -75,10 +74,11 @@ Also for convenience and easy alteration, almost all of the attributes that you 
 
 Some other niceties:
 --------------------
-- *form_class* is set to a ModelForm that was added to your forms.py file
-- *context_object_name* is set to the slugified model_name (ie. tarts for DetailView, UpdateView, and DeleteView, or tarts_list for the ListView)
-- if your model has exactly one unique slug field, it's used as the *slug_field* and *slug_url_kwarg* attribute.
-- *get_success_url* returns the url for the object's DetailView (for DeleteView, the ListView url is returned).
+
+* *form_class* is set to a ModelForm that was added to your forms.py file
+* *context_object_name* is set to the slugified model_name (ie. tarts for DetailView, UpdateView, and DeleteView, or tarts_list for the ListView)
+* if your model has exactly one unique slug field, it's used as the *slug_field* and *slug_url_kwarg* attribute.
+* *get_success_url* returns the url for the object's DetailView (for DeleteView, the ListView url is returned).
 
 Templates
 =========

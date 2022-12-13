@@ -1,3 +1,12 @@
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+
+# Thumbnails
+._*
+
 *.pyc
 django_baker.egg-info
 dist

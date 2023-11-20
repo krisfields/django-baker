@@ -55,7 +55,7 @@ alternatively you can create multiple urlpatterns to create shorter urls.
     (r'^tarts/', include('pastries.urls.tart_urls')),
     (r'^danishes/', include('pastries.urls.danish_urls')),
 ```
-    
+
 will result in the following url schema:
 
 ```
@@ -163,7 +163,7 @@ Our top 3 todo items are:
 1. Allow apps to be baked more than once to account for newly added models.  Right now the default behavior is to only create new files and skip any steps where the file about to be baked already exists.
 2. Automatically generate tests for each app and model
 3. Add tests to Django Baker itself
-   
+
 Pull requests are awesome.
 
 ## License

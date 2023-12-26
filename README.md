@@ -1,4 +1,4 @@
-============
+
 Django Baker
 ============
 
@@ -10,59 +10,58 @@ Optionally you may specify which models in an app to bake if you'd rather not ge
 
 You can override any of the template files that are used in the 'baking' process in the same way that you would override any third party template.  Just create a django_baker folder inside your project's main templates directory and create a file with the same name as any of the 9 files you wish to override, which are: detail.html, create.html, update.html, list.html, delete.html, views, urls, forms, admin, base, __init__urls, __init__views.  Hopefully their names are self explanatory.
 
-**********
-Installing
-**********
 
-.. code-block:: python
+Installing
+----------
+
+```bash
 
     pip install django-baker
-
+```
 Add 'django_baker' to INSTALLED_APPS
 
-*****
+
 Usage
-*****
+-----
 
 Let's assume your project is called TastyTreats, and has two apps, one called bread and another called pastries.
 
-.. code-block:: python
+```bash
 
     python manage.py bake bread pastries
-
+```
 This will generate files for all of the models in both of the apps.  You can override this by passing in models for each app.  Let's assume your pastries app has the following models: Tart, Strudel, and Danish but you only want to bake tarts and danishes.
 
-.. code-block:: python
-
+```bash
     python manage.py bake bread pastries:Tart,Danish
-
+```
 Finally you simply need to add one or more urlpattern to your project's URLconf.
 
-.. code-block:: python
-
+```bash
     (r'^pastries/', include('pastries.urls')),
+```
 
 will result in the following url schema:
 
-.. code-block:: html
-
+```
     www.tastytreats.com/pastries/tarts
     www.tastytreats.com/pastries/danishes
+```
 
 alternatively you can create multiple urlpatterns to create shorter urls.
 
-.. code-block:: python
+```python
 
     (r'^tarts/', include('pastries.urls.tart_urls')),
     (r'^danishes/', include('pastries.urls.danish_urls')),
+```
 
 will result in the following url schema:
 
-.. code-block:: html
-
+```
     www.tastytreats.com/tarts
     www.tastytreats.com/danishes
-
+```
 
 Views
 =====
@@ -75,10 +74,11 @@ Also for convenience and easy alteration, almost all of the attributes that you 
 
 Some other niceties:
 --------------------
-- *form_class* is set to a ModelForm that was added to your forms.py file
-- *context_object_name* is set to the slugified model_name (ie. tarts for DetailView, UpdateView, and DeleteView, or tarts_list for the ListView)
-- if your model has exactly one unique slug field, it's used as the *slug_field* and *slug_url_kwarg* attribute.
-- *get_success_url* returns the url for the object's DetailView (for DeleteView, the ListView url is returned).
+
+* *form_class* is set to a ModelForm that was added to your forms.py file
+* *context_object_name* is set to the slugified model_name (ie. tarts for DetailView, UpdateView, and DeleteView, or tarts_list for the ListView)
+* if your model has exactly one unique slug field, it's used as the *slug_field* and *slug_url_kwarg* attribute.
+* *get_success_url* returns the url for the object's DetailView (for DeleteView, the ListView url is returned).
 
 Templates
 =========
@@ -134,7 +134,7 @@ You can override this by setting the *list_display* attribute or you may extend 
 
 In addition, each URLField, ForeignKey, and OneToOneField will display as a link.  URLFields will link to their respective urls, while ForeignKey and OneToOneFields will link to their respective object's admin change pages.
 
-You can ovverride this functionality by setting **link_url_fields** and/or **link_foreign_key_fields** to False.
+You can override this functionality by setting **link_url_fields** and/or **link_foreign_key_fields** to False.
 
 list_filter
 -----------
@@ -150,21 +150,25 @@ Defaults to any field with a field type matching a field type in **search_by_fie
 
 You can override this by setting the *search_fields* attribute or you may extend it by setting **extra_search_fields** (defaults to an empty list), the contents of which will be appended to search_fields.
 
-****
-Note
-****
 
-Django Baker will remove 2 files (views.py, urls.py) from each app baked so long as the files are 4 lines or less (the initial size of the files when you run startapp).  This is necessary so they don't conflict with the newly generated views and urls folders.  If the files are greater than 4 lines you will need to remove them yourself.
+> ### Note
+> Django Baker will remove 2 files (views.py, urls.py) from each app baked so long as the files are 4 lines or less (the initial size of the files when you run startapp).  This is necessary so they don't conflict with the newly generated views and urls folders.  If the files are greater than 4 lines you will need to remove them yourself.
 
-**************************
+
 The future of Django Baker
-**************************
+==========================
 
-My top 3 todo items are:
+Our top 3 todo items are:
 
 1. Allow apps to be baked more than once to account for newly added models.  Right now the default behavior is to only create new files and skip any steps where the file about to be baked already exists.
 2. Automatically generate tests for each app and model
 3. Add tests to Django Baker itself
-   
+
 Pull requests are awesome.
+
+## License
+
+Copyright 2019–2023 12787326 Canada Inc.
+
+Licensed under the AGPLv3: https://opensource.org/licenses/agpl-3.0
 
